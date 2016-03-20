@@ -1,4 +1,4 @@
-db
+db.sqlite3
 /media
 /django-jquery-file-upload/media
 /bin
