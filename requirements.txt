@@ -10,3 +10,4 @@ dropbox==2.2.0
 requests==2.5.1
 Django==1.7.1
 Jinja2==2.7.3
+django-allauth==0.25.2
