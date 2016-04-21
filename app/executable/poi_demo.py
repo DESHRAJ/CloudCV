@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/usr/lib/python2.7/dist-packages')
+
 import cv2
 import sys
 from cv import CV_HAAR_SCALE_IMAGE

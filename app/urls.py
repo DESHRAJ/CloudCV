@@ -7,6 +7,7 @@ from app.decaf_views import DecafCreateView, decafDropbox, DecafModelCreateView
 from app.classify_views import ClassifyCreateView
 from app.poi_views import PoiCreateView
 from app.trainaclass_views import TrainaclassCreateView
+from app.vqa_views import VqaCreateView
 
 urlpatterns = patterns('',
     url(r'^image-stitch/$', PictureCreateView.as_view(), name='upload-new'),
@@ -16,7 +17,10 @@ urlpatterns = patterns('',
     (r'^classify/$', ClassifyCreateView.as_view(), {}, 'classify'),
     (r'^vip/$', PoiCreateView.as_view(), {}, 'poi'),
     (r'^trainaclass/$', TrainaclassCreateView.as_view(), {}, 'trainaclass'),
+    (r'^vqa/$', VqaCreateView.as_view(), {}, 'vqa'),
+
 )
+
 
 urlpatterns += patterns('app.views',
     url(r'^$', 'homepage', name="home"),
@@ -26,6 +30,7 @@ urlpatterns += patterns('app.views',
     url(r'^matlab/$','matlabReadRequest', name='matlabReadRequest'),
     url(r'^api/$','matlabReadRequest', name='apiRequest'),
     url(r'^ec2/$','ec2', name='ec2'),
+    url(r'^pass/$', 'pass1', name='pass1'),
 )
 
 urlpatterns += patterns('app.decaf_views',
@@ -44,4 +49,15 @@ urlpatterns += patterns('app.poi_views',
 urlpatterns += patterns('app.trainaclass_views',
     url(r'^trainmodel/$', 'trainamodel', name="trainamodel"),
     url(r'^testmodel/$', 'testmodel', name="testmodel"),
+)
+
+urlpatterns += patterns('app.vqa_views',
+    url(r'^demo_vqa/$', 'demoVqa', name='demoVqa'),
+    url(r'^vqa_qn/$', 'handleQuestion', name="handleQuestion"),
+    url(r'^vqa_answer/$', 'handleCorrectAnswer', name='handleCorrectAnswer'),
+    url(r'^demo_vqa_using_image_url/$', 'demo_vqa_using_image_url', name='demo-vqa-using-image-url'),
+)
+
+urlpatterns += patterns('app.cloudcv_admin_views',
+    url(r'^cloudcv_admin/$', 'cloudcv_admin_config', name='cloudcv-admin'),
 )

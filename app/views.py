@@ -300,6 +300,24 @@ def log_every_request(job_obj):
         r.publish('chat', json.dumps({'error': str(traceback.format_exc()), 'socketid': job_obj.socketid}))
 
 @csrf_exempt
+def pass1(request):
+    try:
+    	data = {'success': 'false'}
+    	if request.method =='POST':
+	    post_dict = parser.parse(request.POST.urlencode())
+	    print post_dict
+	    if post_dict['pass'] == 'Passphrase#123!':
+	    	data = {'success': 'true'}
+    	response = JSONResponse(data, {}, response_mimetype(request))
+    	response['Content-Disposition'] = 'inline; filename=files.json'
+    	return response
+    except Exception as e:
+	#print str(traceback.format_exc())
+	data['error'] = 'Error'
+	response = JSONResponse(data,{}, response_mimetype(request))
+	return response
+    
+@csrf_exempt
 def matlabReadRequest(request):
     r = redis.StrictRedis(host = '127.0.0.1', port=6379, db=0)
 

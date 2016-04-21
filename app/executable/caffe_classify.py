@@ -22,9 +22,6 @@ WNID_cells = matWNID['wordsortWNID']
 MODEL_FILE = os.path.join(conf.CAFFE_DIR, 'models/bvlc_reference_caffenet/deploy.prototxt')
 PRETRAINED = os.path.join(conf.CAFFE_DIR, 'models/bvlc_reference_caffenet/bvlc_reference_caffenet.caffemodel')
 
-caffe.set_phase_test()
-caffe.set_mode_cpu()
-
 net = caffe.Classifier(MODEL_FILE, PRETRAINED,
                     mean=np.load(os.path.join(conf.CAFFE_DIR, 'python/caffe/imagenet/ilsvrc_2012_mean.npy')),
                     channel_swap=(2, 1, 0),
@@ -32,6 +29,7 @@ net = caffe.Classifier(MODEL_FILE, PRETRAINED,
                     image_dims=(256, 256))
 
 def caffe_classify_image(single_image):
+    caffe.set_mode_gpu()
     input_image = caffe.io.load_image(single_image)
     prediction = net.predict([input_image])
     map = {}
@@ -49,9 +47,8 @@ def caffe_classify_image(single_image):
 
 
 def caffe_classify(ImagePath):
-
     results = {}
-
+    caffe.set_mode_gpu()
     for file_name in os.listdir(ImagePath):
         if os.path.isfile(os.path.join(ImagePath, file_name)):
             input_image_path = os.path.join(ImagePath, file_name)

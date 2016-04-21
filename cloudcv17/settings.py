@@ -89,6 +89,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.abspath(os.path.dirname(__file__)) + '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 """
 LOGGING = {
     'version': 1,
@@ -125,7 +126,7 @@ LOGGING = {
 
 """
 import redis
-r = redis.StrictRedis(host='localhost', port=6379, db=0)
+r = redis.StrictRedis(host='0.0.0.0', port=6379, db=0)
 r.set('CLOUDCV_ABS_DIR', BASE_ABS_DIR)
 r.set('CLOUDCV_MEDIA_ROOT', MEDIA_ROOT)
 r.set('CLOUDCV_PIC_ROOT', os.path.join(MEDIA_ROOT, 'pictures', 'cloudcv'))
